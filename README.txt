@@ -1,4 +1,4 @@
-1. Склонировать проект с этого репозитория (https://github.com/ZhenyaStarukh/Testing)
+1. Склонировать проект с этого репозитория (https://github.com/ZhenyaStarukh/Testing_homework)
 2. Открыть в IntelliJIdea
 3. Если не встроены плагины Cucumber for Java и Gherkin - установить (File->Settings->Plugins)
 4. За надобностью обновите pom.xml для того, чтобы подтянуть нужные библиотеки
