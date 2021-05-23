@@ -1,20 +1,24 @@
 package pages;
 
+import enums.FormField;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
+import java.util.Map;
 
 
 public class ContactUsPage extends BasePage {
 
-   @FindBy(id = "_content_epam_en_about_who-we-are_contact_jcr_content_content-container_section_section-par_form_constructor_user_email")
+   @FindBy(id = "_content_epam_en_about_who-we-are_contact_jcr_content" +
+           "_content-container_section_section-par_form_constructor_user_email")
    private WebElement emailInput;
 
    @FindBy(id = "_content_epam_en_about_who-we-are_contact_jcr_" +
@@ -51,12 +55,28 @@ public class ContactUsPage extends BasePage {
     private WebElement incorrectEmailMessageBox;
 
 
+    private final Map<FormField, WebElement> fieldMap = new HashMap<>(4);
+    private final Map<FormField, WebElement> emptyBoxMap = new HashMap<>(4);
+
+
     public ContactUsPage(WebDriver driver){
         super(driver);
         SITE_URL+="about/who-we-are/contact";
     }
 
-    public void seeContactUsPage() throws InterruptedException {
+    public void mapFields(){
+        fieldMap.put(FormField.FIRST_NAME,firstNameInput);
+        fieldMap.put(FormField.LAST_NAME, lastNameInput);
+        fieldMap.put(FormField.EMAIL,emailInput);
+        fieldMap.put(FormField.PHONE,phoneInput);
+
+        emptyBoxMap.put(FormField.FIRST_NAME, emptyFirstNameMessageBox);
+        emptyBoxMap.put(FormField.LAST_NAME, emptyLastNameMessageBox);
+        emptyBoxMap.put(FormField.EMAIL, emptyEmailMessageBox);
+        emptyBoxMap.put(FormField.PHONE, emptyPhoneMessageBox);
+    }
+
+    public void seeContactUsPage() {
         redirectedPage(SITE_URL);
     }
 
@@ -64,64 +84,40 @@ public class ContactUsPage extends BasePage {
         driver.get(SITE_URL);
     }
 
-    public void fillWrongEmail(){
+    public void fillEmail(String email) {
         disclaimerButton.click();
-        emailInput.sendKeys("wrongEmail");
+        emailInput.sendKeys(email);
         emailInput.sendKeys(Keys.ENTER);
     }
 
-    public void fillEverythingExcept(String str){
-        WebElement element;
 
-        if (!str.equals("First Name")){
-           firstNameInput.sendKeys("FirstName");
-        }
-        if (!str.equals("Last Name")){
-            lastNameInput.sendKeys("LastName");
-        }
-        if (!str.equals("Email")){
-            emailInput.sendKeys("Email@email.com");
-        }
-        if (!str.equals("Phone")){
-            phoneInput.sendKeys("+123456789012");
+    public void fillEverythingExcept(FormField field) {
+        for (FormField formField : FormField.values()){
+            if(!formField.equals(field)){
+                System.out.println(fieldMap.get(formField));
+                fieldMap.get(formField).sendKeys(formField.getValue());
+            }
         }
     }
 
-
-
-    public void clickSubmit(){
+    public void clickSubmit() {
         disclaimerButton.click();
         checkbox.click();
         submitButton.click();
     }
 
-    private WebElement messageBox(String str){
-        switch (str){
-            case "First Name":
-                return emptyFirstNameMessageBox;
-            case "Last Name":
-                return emptyLastNameMessageBox;
-            case "Email":
-                return emptyEmailMessageBox;
-            case "Phone":
-                return emptyPhoneMessageBox;
-            default:
-                return null;
-        }
-    }
+    private WebElement messageBox(FormField field) {
 
-    public void highlightBox(String str){
-
-        List<WebElement> elements = new ArrayList<>();
-        elements.add(messageBox(str));
-        isElementVisible(elements);
+        return emptyBoxMap.get(field);
 
     }
 
-    public void highlightWrongEmail(){
-        List<WebElement> elements = new ArrayList<>();
-        elements.add(incorrectEmailMessageBox);
-        isElementVisible(elements);
+    public void highlightBox(FormField field) {
+        isElementVisible(messageBox(field));
+    }
+
+    public void highlightWrongEmail() {
+        isElementVisible(incorrectEmailMessageBox);
     }
 
 

@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 public class TestBase {
 
+//ToDo polish the code for it to look more readable
     protected WebDriver driver;
     protected MainPage mainPage;
     protected ServicesPage servicesPage;
@@ -27,7 +28,9 @@ public class TestBase {
         driver.manage().window().maximize();
         mainPage = PageFactory.initElements(driver, MainPage.class);
         servicesPage = PageFactory.initElements(driver, ServicesPage.class);
+        servicesPage.mapServices();
         contactUsPage = PageFactory.initElements(driver,ContactUsPage.class);
+        contactUsPage.mapFields();
     }
 
     @AfterEach

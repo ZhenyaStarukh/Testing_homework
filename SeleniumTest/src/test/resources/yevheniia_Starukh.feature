@@ -15,23 +15,31 @@ Feature: Test some features of site
   Scenario Outline: I want to go to services subpage
     Given opened site's main page
     When I click on services button
-    And click the "<servicename>" button
-    Then I will be redirected to "<servicepage>" page
+    And click the "<serviceName>" button
+    Then I will be redirected to "<serviceName>" page
 
     Examples:
-      | servicename | servicepage        |
-      | consult     | consult-and-design |
-      | design      | consult-and-design |
-      | engineer    | engineer           |
-      | operate     | operate            |
-      | optimize    | optimize           |
+      | serviceName |
+      | CONSULT     |
+      | DESIGN      |
+      | ENGINEER    |
+      | OPERATE     |
+      | OPTIMIZE    |
 
 
-  Scenario: I want to change language from English to Russian
+  Scenario Outline: I want to change language from English to another language
     Given opened site's main page in English
     When I click the change language button
-    And choose Russian language
-    Then I see site's main page on Russian
+    And choose "<language>" language
+    Then I see site's main page on "<language>"
+
+    Examples:
+      | language  |
+      | CZECH     |
+      | POLISH    |
+      | UKRAINIAN |
+      | RUSSIAN   |
+      | CHINESE   |
 
   Scenario: I want to go to the contact us page
     Given opened site's main page
@@ -47,10 +55,10 @@ Feature: Test some features of site
 
     Examples:
       | field      |
-      | First Name |
-      | Last Name  |
-      | Email      |
-      | Phone      |
+      | FIRST_NAME |
+      | LAST_NAME  |
+      | EMAIL      |
+      | PHONE      |
 
 
   Scenario: I accidentally wrote email not in the corresponding form
@@ -64,13 +72,12 @@ Feature: Test some features of site
     When I click the Europe button
     And choose Ukraine from the list
     And click on map button for "<location>" location
-    Then I will be redirected to the new page with map where the office "<location>" is shown
+    Then I will be redirected to the map page with with the office "<location>"
 
     Examples:
       | location                |
-      | Lviv                    |
-      | Dnipro                  |
-      | Kharkiv                 |
-      | Vinnytsia               |
-      | Kyiv: Registered office |
-      | Kyiv: Visitors office   |
+      | LVIV                    |
+      | DNIPRO                  |
+      | KHARKIV                 |
+      | VINNYTSIA               |
+      | KYIV_VISITORS_OFFICE    |

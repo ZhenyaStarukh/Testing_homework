@@ -1,16 +1,19 @@
 package pages;
 
+import enums.Services;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class ServicesPage extends BasePage {
 
-    @FindBy(xpath = "/html/body/div[2]/div[2]/div[2]/div/div/header/div/a/img")
+    @FindBy(xpath = "//img[@class=\"header__logo\"]")
     private WebElement logo;
 
     @FindBy(xpath = "//strong[text()='Consult']")
@@ -28,11 +31,19 @@ public class ServicesPage extends BasePage {
     @FindBy(xpath = "//strong[text()='Optimize']")
     private WebElement optimizeButton;
 
+    private final Map<Services, WebElement> serviceMap = new HashMap<>(5);
 
-
-    public ServicesPage(WebDriver driver){
+    public ServicesPage(WebDriver driver) {
         super(driver);
         SITE_URL+="services";
+    }
+
+    public void mapServices() {
+        serviceMap.put(Services.CONSULT, consultButton);
+        serviceMap.put(Services.DESIGN, designButton);
+        serviceMap.put(Services.ENGINEER, engineerButton);
+        serviceMap.put(Services.OPERATE, operateButton);
+        serviceMap.put(Services.OPTIMIZE, optimizeButton);
     }
 
     public void goTo(){
@@ -43,29 +54,17 @@ public class ServicesPage extends BasePage {
         logo.click();
     }
 
-    private WebElement findServiceElement(String name){
-        switch (name){
-            case "Consult":
-                return consultButton;
-            case "Design":
-                return designButton;
-            case "Engineer":
-                return engineerButton;
-            case "Operate":
-                return operateButton;
-            default:
-                return optimizeButton;
-        }
+    private WebElement findServiceElement(Services service) {
+        return serviceMap.get(service);
     }
 
-    public void clickServiceName(String name){
+    public void clickServiceName(Services service) {
         disclaimerButton.click();
-        name = capitalize(name);
-        findServiceElement(name).click();
+        findServiceElement(service).click();
     }
 
-    public void checkRedirection(String page) throws InterruptedException {
-        redirectedPage(SITE_URL+"/"+page);
+    public void checkRedirection(Services service) throws InterruptedException {
+        redirectedPage(service.getServicePageURL());
     }
 
 

@@ -1,5 +1,9 @@
 package steps;
 
+import enums.FormField;
+import enums.Language;
+import enums.Services;
+import enums.UkraineLocations;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
@@ -47,7 +51,7 @@ public class StepDefinition extends TestBase {
     }
 
     @Then("I return to the main page")
-    public void iReturnToTheMainPage() throws InterruptedException {
+    public void iReturnToTheMainPage() {
         mainPage.onMainPage();
     }
 
@@ -56,14 +60,19 @@ public class StepDefinition extends TestBase {
         mainPage.clickServicesButton();
     }
 
-    @And("click the {string} button")
-    public void clickTheButton(String arg0) {
-        servicesPage.clickServiceName(arg0);
+    @And("^click the \"([^\"]*)\" button$")
+    public void clickTheButton(Services service) {
+        servicesPage.clickServiceName(service);
     }
 
-    @Then("I will be redirected to {string} page")
-    public void iWillBeRedirectedToPage(String arg0) throws InterruptedException {
-        servicesPage.checkRedirection(arg0);
+    @Then("^I will be redirected to \"([^\"]*)\" page$")
+    public void iWillBeRedirectedToPage(Services service) {
+        try{
+            servicesPage.checkRedirection(service);
+        } catch (InterruptedException exception){
+            exception.printStackTrace();
+        }
+
     }
 
     @Given("opened site's main page in English")
@@ -76,14 +85,15 @@ public class StepDefinition extends TestBase {
         mainPage.clickLanguageButton();
     }
 
-    @And("choose Russian language")
-    public void chooseRussianLanguage() {
-        mainPage.chooseRussian();
+
+    @And("^choose \"([^\"]*)\" language$")
+    public void chooseAnotherLanguage(Language language) {
+        mainPage.chooseLanguage(language);
     }
 
-    @Then("I see site's main page on Russian")
-    public void iSeeSiteSMainPageOnRussian() throws InterruptedException {
-        mainPage.seeRussianMainPage();
+    @Then("^I see site's main page on \"([^\"]*)\"$")
+    public void iSeeSiteSMainPageOnAnotherLanguage(Language language) {
+        mainPage.seeOtherMainPage(language);
     }
 
     @When("I click the contact us button")
@@ -92,7 +102,7 @@ public class StepDefinition extends TestBase {
     }
 
     @Then("I see contact us page")
-    public void iSeeContactUsPage() throws InterruptedException {
+    public void iSeeContactUsPage() {
         contactUsPage.seeContactUsPage();
     }
 
@@ -101,9 +111,9 @@ public class StepDefinition extends TestBase {
         contactUsPage.goTo();
     }
 
-    @When("I didn't fill {string}")
-    public void iDidnTFill(String arg0) {
-        contactUsPage.fillEverythingExcept(arg0);
+    @When("I didn't fill \"([^\"]*)\"$")
+    public void iDidnTFill(FormField field) {
+        contactUsPage.fillEverythingExcept(field);
     }
 
     @Then("the form won't be submitted")
@@ -111,15 +121,15 @@ public class StepDefinition extends TestBase {
         contactUsPage.clickSubmit();
     }
 
-    @And("it will highlight the empty {string} box")
-    public void itWillHighlightTheEmptyBox(String arg0) {
-        contactUsPage.highlightBox(arg0);
+    @And("^it will highlight the empty \"([^\"]*)\" box$")
+    public void itWillHighlightTheEmptyBox(FormField field) {
+        contactUsPage.highlightBox(field);
     }
 
 
     @When("I fill the email box not with an email")
     public void iFillTheEmailBoxNotWithAnEmail() {
-        contactUsPage.fillWrongEmail();
+        contactUsPage.fillEmail("wrongEmail");
     }
 
     @Then("the form will tell me that I have made wrong input")
@@ -127,24 +137,29 @@ public class StepDefinition extends TestBase {
         contactUsPage.highlightWrongEmail();
     }
 
+    //ToDo change examples to enum
     @When("I click the Europe button")
     public void iClickTheEuropeButton() {
         mainPage.clickEurope();
     }
 
     @And("choose Ukraine from the list")
-    public void chooseUkraineFromTheList() throws InterruptedException {
+    public void chooseUkraineFromTheList() {
         mainPage.chooseUkraine();
     }
 
-    @And("click on map button for {string} location")
-    public void clickOnMapButtonForLocation(String arg0) {
-        mainPage.clickOnMapButton(arg0);
+    @And("^click on map button for \"([^\"]*)\" location$")
+    public void clickOnMapButtonForLocation(UkraineLocations location) {
+        mainPage.clickOnMapButton(location);
     }
 
 
-    @Then("I will be redirected to the new page with map where the office {string} is shown")
-    public void iWillBeRedirectedToTheNewPageWithMapWhereTheOfficeIsShown(String arg0) throws InterruptedException {
-        mainPage.mapRedirect(arg0);
+    @Then("^I will be redirected to the map page with with the office \"([^\"]*)\"$")
+    public void iWillBeRedirectedToTheNewPageWithMapWhereTheOfficeIsShown(UkraineLocations location) {
+        try{
+            mainPage.mapRedirect(location);
+        } catch (InterruptedException exception) {
+            exception.printStackTrace();
+        }
     }
 }
