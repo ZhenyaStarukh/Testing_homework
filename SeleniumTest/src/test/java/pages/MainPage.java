@@ -15,7 +15,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.List;
 
 
-
 public class MainPage extends BasePage {
 
     @FindBy(xpath = "//a[contains(text(),'Services')]")
@@ -45,12 +44,9 @@ public class MainPage extends BasePage {
             "section/div/div[2]/div/div[3]/div/div/div[1]/div[1]/div/div[26]/div/button")
     private WebElement ukraineButton;
 
-
     public MainPage(WebDriver driver){
         super(driver);
     }
-
-
 
     public void goTo(){
         driver.get(SITE_URL);
@@ -102,6 +98,7 @@ public class MainPage extends BasePage {
 
         arrowLeft.click();
         arrowLeft.click();
+        wait.until(ExpectedConditions.elementToBeClickable(ukraineButton));
 
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", ukraineButton);
 
@@ -114,7 +111,6 @@ public class MainPage extends BasePage {
         new Actions(driver).moveToElement(ukraineButton).perform();
 
         ukraineButton.click();
-
     }
 
 

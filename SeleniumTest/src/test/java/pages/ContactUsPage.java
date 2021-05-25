@@ -59,12 +59,12 @@ public class ContactUsPage extends BasePage {
     private final Map<FormField, WebElement> emptyBoxMap = new HashMap<>(4);
 
 
-    public ContactUsPage(WebDriver driver){
+    public ContactUsPage(WebDriver driver) {
         super(driver);
         SITE_URL+="about/who-we-are/contact";
     }
 
-    public void mapFields(){
+    public void mapFields() {
         fieldMap.put(FormField.FIRST_NAME,firstNameInput);
         fieldMap.put(FormField.LAST_NAME, lastNameInput);
         fieldMap.put(FormField.EMAIL,emailInput);
@@ -92,8 +92,8 @@ public class ContactUsPage extends BasePage {
 
 
     public void fillEverythingExcept(FormField field) {
-        for (FormField formField : FormField.values()){
-            if(!formField.equals(field)){
+        for (FormField formField : FormField.values()) {
+            if(!formField.equals(field)) {
                 System.out.println(fieldMap.get(formField));
                 fieldMap.get(formField).sendKeys(formField.getValue());
             }
@@ -107,9 +107,7 @@ public class ContactUsPage extends BasePage {
     }
 
     private WebElement messageBox(FormField field) {
-
         return emptyBoxMap.get(field);
-
     }
 
     public void highlightBox(FormField field) {

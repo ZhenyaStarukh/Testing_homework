@@ -72,7 +72,7 @@ Feature: Test some features of site
     When I click the Europe button
     And choose Ukraine from the list
     And click on map button for "<location>" location
-    Then I will be redirected to the map page with with the office "<location>"
+    Then I will be redirected to the map page with the office "<location>"
 
     Examples:
       | location                |

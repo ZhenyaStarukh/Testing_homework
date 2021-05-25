@@ -15,12 +15,12 @@ import test.TestBase;
 public class StepDefinition extends TestBase {
 
     @Before
-    public void init(){
+    public void init() {
         start();
     }
 
     @After
-    public void teardown(){
+    public void teardown() {
         finish();
     }
 
@@ -72,7 +72,6 @@ public class StepDefinition extends TestBase {
         } catch (InterruptedException exception){
             exception.printStackTrace();
         }
-
     }
 
     @Given("opened site's main page in English")
@@ -122,24 +121,23 @@ public class StepDefinition extends TestBase {
     }
 
     @And("^it will highlight the empty \"([^\"]*)\" box$")
-    public void itWillHighlightTheEmptyBox(FormField field) {
+    public void checkHighlightOfEmptyBox(FormField field) {
         contactUsPage.highlightBox(field);
     }
 
 
     @When("I fill the email box not with an email")
-    public void iFillTheEmailBoxNotWithAnEmail() {
+    public void fillTheEmailBoxNotWithAnEmail() {
         contactUsPage.fillEmail("wrongEmail");
     }
 
     @Then("the form will tell me that I have made wrong input")
-    public void theFormWillTellMeThatIHaveMadeWrongInput() {
+    public void informAboutWrongInput() {
         contactUsPage.highlightWrongEmail();
     }
 
-    //ToDo change examples to enum
     @When("I click the Europe button")
-    public void iClickTheEuropeButton() {
+    public void clickTheEuropeButton() {
         mainPage.clickEurope();
     }
 
@@ -154,8 +152,8 @@ public class StepDefinition extends TestBase {
     }
 
 
-    @Then("^I will be redirected to the map page with with the office \"([^\"]*)\"$")
-    public void iWillBeRedirectedToTheNewPageWithMapWhereTheOfficeIsShown(UkraineLocations location) {
+    @Then("^I will be redirected to the map page with the office \"([^\"]*)\"$")
+    public void redirectToMapPage(UkraineLocations location) {
         try{
             mainPage.mapRedirect(location);
         } catch (InterruptedException exception) {

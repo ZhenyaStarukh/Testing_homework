@@ -1,5 +1,6 @@
 package pages;
 
+import additional.UrlChanged;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -23,16 +24,18 @@ public class BasePage {
         wait = new WebDriverWait(driver,1);
     }
 
-    public void isElementNotDisplayed(List<WebElement> elements){
+    public void isElementNotDisplayed(List<WebElement> elements) {
         assertFalse(elements.size()>0);
     }
 
-    public void isElementVisible(WebElement element){
+    public void isElementVisible(WebElement element) {
         assertEquals(element.getAttribute("visibility"), "visible");
     }
 
     public void redirectedPage(String url) {
         new WebDriverWait(driver,20).until(ExpectedConditions.urlToBe(url));
+//        wait until url changes (in a loop?)
+//        new WebDriverWait(driver, 20).until(new UrlChanged(driver.getCurrentUrl(),url));
         assertEquals(url, driver.getCurrentUrl());
     }
 

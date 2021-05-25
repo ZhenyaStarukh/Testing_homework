@@ -4,6 +4,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.PageFactory;
 import pages.ContactUsPage;
@@ -14,14 +15,14 @@ import java.util.concurrent.TimeUnit;
 
 public class TestBase {
 
-//ToDo polish the code for it to look more readable
+
     protected WebDriver driver;
     protected MainPage mainPage;
     protected ServicesPage servicesPage;
     protected ContactUsPage contactUsPage;
 
     @BeforeEach
-    public void start(){
+    public void start() {
         WebDriverManager.firefoxdriver().setup();
         driver = new FirefoxDriver();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
