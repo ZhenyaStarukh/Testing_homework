@@ -32,7 +32,7 @@ public class BasePage {
         assertEquals(element.getAttribute("visibility"), "visible");
     }
 
-    public void redirectedPage(String url) {
+    public void isPageRedirected(String url) {
         new WebDriverWait(driver,20).until(ExpectedConditions.urlToBe(url));
 //        wait until url changes (in a loop?)
 //        new WebDriverWait(driver, 20).until(new UrlChanged(driver.getCurrentUrl(),url));

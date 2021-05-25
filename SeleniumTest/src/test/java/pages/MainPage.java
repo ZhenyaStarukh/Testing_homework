@@ -78,11 +78,11 @@ public class MainPage extends BasePage {
     }
 
     public void seeOtherMainPage(Language language) {
-        redirectedPage(language.getSiteURL()+"/");
+        isPageRedirected(language.getSiteURL()+"/");
     }
 
-    public void onMainPage() {
-        redirectedPage(SITE_URL);
+    public void isOnMainPage() {
+        isPageRedirected(SITE_URL);
     }
 
     public void clickEurope() {
@@ -125,15 +125,15 @@ public class MainPage extends BasePage {
         getMapButton(location).click();
     }
 
-    private void forMapsRedirect(String url) {
+    private void redirectToMap(String url) {
         for(String winHandle : driver.getWindowHandles()){
             driver.switchTo().window(winHandle);
         }
-        redirectedPage(url);
+        isPageRedirected(url);
     }
 
-    public void mapRedirect(UkraineLocations location) throws InterruptedException {
-        forMapsRedirect(location.getLocationURL());
+    public void checkMapRedirect(UkraineLocations location) throws InterruptedException {
+        redirectToMap(location.getLocationURL());
     }
 
 }

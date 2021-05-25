@@ -52,7 +52,7 @@ public class StepDefinition extends TestBase {
 
     @Then("I return to the main page")
     public void iReturnToTheMainPage() {
-        mainPage.onMainPage();
+        mainPage.isOnMainPage();
     }
 
     @When("I click on services button")
@@ -155,7 +155,7 @@ public class StepDefinition extends TestBase {
     @Then("^I will be redirected to the map page with the office \"([^\"]*)\"$")
     public void redirectToMapPage(UkraineLocations location) {
         try{
-            mainPage.mapRedirect(location);
+            mainPage.checkMapRedirect(location);
         } catch (InterruptedException exception) {
             exception.printStackTrace();
         }

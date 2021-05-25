@@ -1,17 +1,12 @@
 package pages;
 
 import enums.FormField;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -77,7 +72,7 @@ public class ContactUsPage extends BasePage {
     }
 
     public void seeContactUsPage() {
-        redirectedPage(SITE_URL);
+        isPageRedirected(SITE_URL);
     }
 
     public void goTo(){
@@ -106,12 +101,12 @@ public class ContactUsPage extends BasePage {
         submitButton.click();
     }
 
-    private WebElement messageBox(FormField field) {
+    private WebElement getMessageBox(FormField field) {
         return emptyBoxMap.get(field);
     }
 
     public void highlightBox(FormField field) {
-        isElementVisible(messageBox(field));
+        isElementVisible(getMessageBox(field));
     }
 
     public void highlightWrongEmail() {
