@@ -3,46 +3,36 @@ package pages;
 import additional.ElementDisplayed;
 import enums.Language;
 import enums.UkraineLocations;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.util.List;
 
 
 public class MainPage extends BasePage {
 
-    @FindBy(xpath = "//a[contains(text(),'Services')]")
-    private WebElement servicesButton;
+    private final By servicesButton = new By.ByXPath("//a[contains(text(),'Services')]");
 
-    @FindBy(xpath = "//div[contains(@class,'cookie-disclaimer__column')]")
-    private List<WebElement> cookieWindow;
+    private final By cookieWindow = new By.ByXPath("//div[@class = 'cookie-disclaimer__column']");
 
-    @FindBy(xpath = "//button[contains(@class,'location-selector__button')][ contains(text(),'Global (EN)')]")
-    private WebElement languageButton;
+    private final By languageButton = new
+            By.ByXPath("//button[contains(@class,'location-selector__button')]" +
+            "[ contains(text(),'Global (EN)')]");
 
-    @FindBy(xpath = "//span[contains(text(),'CONTACT US')]")
-    private WebElement contactUsButton;
+    private final By contactUsButton = new By.ByXPath("//span[contains(text(),'CONTACT US')]");
 
-    @FindBy(xpath = "//*[contains(@class,'tabs__link js-tabs-link')][contains(text(),'Europe')]")
-    private WebElement europeButton;
+    private final By europeButton = new
+            By.ByXPath("//*[contains(@class,'tabs__link js-tabs-link')][contains(text(),'Europe')]");
 
-    @FindBy(xpath = "//div[@data-item-count=\"18\"]/div[@class=\"locations-viewer__carousel " +
-            "owl-loaded owl-drag\"]/div[@class=\"owl-nav\"]/button[@class=\"owl-prev\"]")
-    private WebElement arrowLeft;
+    private final By arrowLeft = new By.ByXPath("//div[@data-item-count=\"18\"]/div[@class=\"locations-viewer__carousel " +
+            "owl-loaded owl-drag\"]/div[@class=\"owl-nav\"]/button[@class=\"owl-prev\"]");
 
-// cannot see this element for some reason
-//    @FindBy(xpath = "//div[@class=\"locations-viewer__country-title\"][text()=\"Ukraine\"]/parent::*")
-//    private WebElement ukraineButton;
+    private final By countryButtons = new By.ByXPath("//button[@class=\"locations-viewer__country-btn\"]");
 
-    @FindBy(xpath = "/html/body/div[2]/main/div[1]/div[10]/" +
-            "section/div/div[2]/div/div[3]/div/div/div[1]/div[1]/div/div[26]/div/button")
-    private WebElement ukraineButton;
+    private final By childCountryButton = new By.ByXPath(".//div[@class=\"locations-viewer__country-title\"]");
+
+
+    private final By by = new By.ByXPath("//div[@class=\"owl-item active\"]/div[@data-country=\"ukraine\"]/button");
 
     public MainPage(WebDriver driver){
         super(driver);
@@ -53,11 +43,11 @@ public class MainPage extends BasePage {
     }
 
     public void clickAcceptCookies(){
-        disclaimerButton.click();
+        driver.findElement(disclaimerButton).click();
     }
 
     public void clickServicesButton(){
-        servicesButton.click();
+        driver.findElement(servicesButton).click();
     }
 
     public void checkVanishedCookieWindow(){
@@ -65,11 +55,11 @@ public class MainPage extends BasePage {
     }
 
     public void clickLanguageButton(){
-        languageButton.click();
+        driver.findElement(languageButton).click();
     }
 
     public void clickContactUsButton(){
-        contactUsButton.click();
+        driver.findElement(contactUsButton).click();
     }
 
     public void chooseLanguage(Language language) {
@@ -87,30 +77,29 @@ public class MainPage extends BasePage {
 
     public void clickEurope() {
         clickAcceptCookies();
-        europeButton.click();
+        driver.findElement(europeButton).click();
     }
 
 
-    //toDo ukraineButton cannot be scrolled into view if found by another xpath -> solve this
+    //toDo check why the text is not shown -> probably this is why the function above won't work
     public void chooseUkraine() {
 
         WebDriverWait wait = new WebDriverWait(driver, 20);
 
-        arrowLeft.click();
-        arrowLeft.click();
-        wait.until(ExpectedConditions.elementToBeClickable(ukraineButton));
+        driver.findElement(arrowLeft).click();
+        driver.findElement(arrowLeft).click();
 
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", ukraineButton);
+        wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(by)));
 
-        wait.until(new ElementDisplayed(ukraineButton));
-        wait.until(ExpectedConditions.visibilityOf(ukraineButton));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(
-                By.xpath("/html/body/div[2]/main/div[1]/div[10]/sect" +
-                        "ion/div/div[2]/div/div[3]/div/div/div[1]/div[1]/div/div[26]/div/button")));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", driver.findElement(by));
 
-        new Actions(driver).moveToElement(ukraineButton).perform();
+        wait.until(new ElementDisplayed(driver.findElement(by)));
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(by)));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(by));
 
-        ukraineButton.click();
+        new Actions(driver).moveToElement(driver.findElement(by)).perform();
+
+        driver.findElement(by).click();
     }
 
 

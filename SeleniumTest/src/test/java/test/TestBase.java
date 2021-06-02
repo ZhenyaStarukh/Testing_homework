@@ -29,9 +29,7 @@ public class TestBase {
         driver.manage().window().maximize();
         mainPage = PageFactory.initElements(driver, MainPage.class);
         servicesPage = PageFactory.initElements(driver, ServicesPage.class);
-        servicesPage.mapServices();
         contactUsPage = PageFactory.initElements(driver,ContactUsPage.class);
-        contactUsPage.mapFields();
     }
 
     @AfterEach
