@@ -25,12 +25,12 @@ public class StepDefinition extends TestBase {
     }
 
     @Given("opened site's main page")
-    public void openedSiteSMainPage() {
+    public void openSiteSMainPage() {
         mainPage.goTo();
     }
 
     @When("I click the accept button")
-    public void iClickTheAcceptButton() {
+    public void clickTheAcceptButton() {
         mainPage.clickAcceptCookies();
     }
 
@@ -41,22 +41,22 @@ public class StepDefinition extends TestBase {
 
 
     @Given("opened site's services page")
-    public void openedSiteSServicesPage() {
+    public void openedSiteServicesPage() {
         servicesPage.goTo();
     }
 
     @When("I click on the company's logo")
-    public void iClickOnTheCompanySLogo() {
+    public void clickOnTheCompanySLogo() {
         servicesPage.clickLogo();
     }
 
     @Then("I return to the main page")
-    public void iReturnToTheMainPage() {
+    public void returnToTheMainPage() {
         mainPage.isOnMainPage();
     }
 
     @When("I click on services button")
-    public void iClickOnServicesButton() {
+    public void clickOnServicesButton() {
         mainPage.clickServicesButton();
     }
 
@@ -66,7 +66,7 @@ public class StepDefinition extends TestBase {
     }
 
     @Then("^I will be redirected to \"([^\"]*)\" page$")
-    public void iWillBeRedirectedToPage(Services service) {
+    public void redirectedToPage(Services service) {
         try{
             servicesPage.checkRedirection(service);
         } catch (InterruptedException exception){
@@ -80,7 +80,7 @@ public class StepDefinition extends TestBase {
     }
 
     @When("I click the change language button")
-    public void iClickTheChangeLanguageButton() {
+    public void clickTheChangeLanguageButton() {
         mainPage.clickLanguageButton();
     }
 
@@ -91,17 +91,17 @@ public class StepDefinition extends TestBase {
     }
 
     @Then("^I see site's main page on \"([^\"]*)\"$")
-    public void iSeeSiteSMainPageOnAnotherLanguage(Language language) {
+    public void seeSiteMainPageOnAnotherLanguage(Language language) {
         mainPage.seeOtherMainPage(language);
     }
 
     @When("I click the contact us button")
-    public void iClickTheContactUsButton() {
+    public void clickTheContactUsButton() {
         mainPage.clickContactUsButton();
     }
 
     @Then("I see contact us page")
-    public void iSeeContactUsPage() {
+    public void seeContactUsPage() {
         contactUsPage.seeContactUsPage();
     }
 
@@ -111,7 +111,7 @@ public class StepDefinition extends TestBase {
     }
 
     @When("I didn't fill \"([^\"]*)\"$")
-    public void iDidnTFill(FormField field) {
+    public void didnTFill(FormField field) {
         contactUsPage.fillEverythingExcept(field);
     }
 

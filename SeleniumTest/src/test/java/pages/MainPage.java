@@ -31,34 +31,33 @@ public class MainPage extends BasePage {
 
     private final By childCountryButton = new By.ByXPath(".//div[@class=\"locations-viewer__country-title\"]");
 
+    private final By ukraineButton = new By.ByXPath("//div[@class=\"owl-item active\"]/div[@data-country=\"ukraine\"]/button");
 
-    private final By by = new By.ByXPath("//div[@class=\"owl-item active\"]/div[@data-country=\"ukraine\"]/button");
-
-    public MainPage(WebDriver driver){
+    public MainPage(WebDriver driver) {
         super(driver);
     }
 
-    public void goTo(){
+    public void goTo() {
         driver.get(SITE_URL);
     }
 
-    public void clickAcceptCookies(){
+    public void clickAcceptCookies() {
         driver.findElement(disclaimerButton).click();
     }
 
-    public void clickServicesButton(){
+    public void clickServicesButton() {
         driver.findElement(servicesButton).click();
     }
 
-    public void checkVanishedCookieWindow(){
+    public void checkVanishedCookieWindow() {
         isElementNotDisplayed(cookieWindow);
     }
 
-    public void clickLanguageButton(){
+    public void clickLanguageButton() {
         driver.findElement(languageButton).click();
     }
 
-    public void clickContactUsButton(){
+    public void clickContactUsButton() {
         driver.findElement(contactUsButton).click();
     }
 
@@ -80,8 +79,6 @@ public class MainPage extends BasePage {
         driver.findElement(europeButton).click();
     }
 
-
-    //toDo check why the text is not shown -> probably this is why the function above won't work
     public void chooseUkraine() {
 
         WebDriverWait wait = new WebDriverWait(driver, 20);
@@ -89,17 +86,17 @@ public class MainPage extends BasePage {
         driver.findElement(arrowLeft).click();
         driver.findElement(arrowLeft).click();
 
-        wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(by)));
+        wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(ukraineButton)));
 
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", driver.findElement(by));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", driver.findElement(ukraineButton));
 
-        wait.until(new ElementDisplayed(driver.findElement(by)));
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(by)));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+        wait.until(new ElementDisplayed(driver.findElement(ukraineButton)));
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(ukraineButton)));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(ukraineButton));
 
-        new Actions(driver).moveToElement(driver.findElement(by)).perform();
+        new Actions(driver).moveToElement(driver.findElement(ukraineButton)).perform();
 
-        driver.findElement(by).click();
+        driver.findElement(ukraineButton).click();
     }
 
 
@@ -115,7 +112,7 @@ public class MainPage extends BasePage {
     }
 
     private void redirectToMap(String url) {
-        for(String winHandle : driver.getWindowHandles()){
+        for(String winHandle : driver.getWindowHandles()) {
             driver.switchTo().window(winHandle);
         }
         isPageRedirected(url);

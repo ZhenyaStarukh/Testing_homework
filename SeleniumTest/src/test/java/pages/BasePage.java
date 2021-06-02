@@ -45,8 +45,6 @@ public class BasePage {
 
     public void isPageRedirected(String url) {
         new WebDriverWait(driver,20).until(ExpectedConditions.urlToBe(url));
-//        wait until url changes (in a loop?)
-//        new WebDriverWait(driver, 20).until(new UrlChanged(driver.getCurrentUrl(),url));
         assertEquals(url, driver.getCurrentUrl());
     }
 

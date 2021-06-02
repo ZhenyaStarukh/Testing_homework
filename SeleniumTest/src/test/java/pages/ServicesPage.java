@@ -19,11 +19,11 @@ public class ServicesPage extends BasePage {
         SITE_URL+="services";
     }
 
-    public void goTo(){
+    public void goTo() {
         driver.get(SITE_URL);
     }
 
-    public void clickLogo(){
+    public void clickLogo() {
         logo.click();
     }
 

@@ -30,7 +30,7 @@ public class ContactUsPage extends BasePage {
         isPageRedirected(SITE_URL);
     }
 
-    public void goTo(){
+    public void goTo() {
         driver.get(SITE_URL);
     }
 
