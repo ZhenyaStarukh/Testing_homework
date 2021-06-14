@@ -1,12 +1,15 @@
 package pages;
 
 import additional.ElementDisplayed;
+import additional.Utils;
 import enums.Language;
 import enums.UkraineLocations;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import static java.lang.Thread.sleep;
 
 
 public class MainPage extends BasePage {
@@ -49,8 +52,8 @@ public class MainPage extends BasePage {
         driver.findElement(servicesButton).click();
     }
 
-    public void checkVanishedCookieWindow() {
-        isElementNotDisplayed(cookieWindow);
+    public Boolean checkVanishedCookieWindow() {
+        return Utils.elementIsNotDisplayed(cookieWindow, driver);
     }
 
     public void clickLanguageButton() {
@@ -66,12 +69,12 @@ public class MainPage extends BasePage {
         languageLink.click();
     }
 
-    public void seeOtherMainPage(Language language) {
-        isPageRedirected(language.getSiteURL()+"/");
+    public Boolean seeOtherMainPage(Language language) {
+        return isPageRedirected(language.getSiteURL()+"/");
     }
 
-    public void isOnMainPage() {
-        isPageRedirected(SITE_URL);
+    public Boolean isOnMainPage() {
+        return isPageRedirected(SITE_URL);
     }
 
     public void clickEurope() {
@@ -79,24 +82,28 @@ public class MainPage extends BasePage {
         driver.findElement(europeButton).click();
     }
 
-    public void chooseUkraine() {
+    public void chooseCountry(By byCountry) throws InterruptedException {
 
         WebDriverWait wait = new WebDriverWait(driver, 20);
 
-        driver.findElement(arrowLeft).click();
-        driver.findElement(arrowLeft).click();
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", driver.findElement(arrowLeft));
 
-        wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(ukraineButton)));
+        do{
+            driver.findElement(arrowLeft).click();
+            sleep(300);
+        }while(!Utils.elementIsVisible(driver.findElement(byCountry)));
 
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", driver.findElement(ukraineButton));
+        wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(byCountry)));
 
-        wait.until(new ElementDisplayed(driver.findElement(ukraineButton)));
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(ukraineButton)));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(ukraineButton));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", driver.findElement(byCountry));
 
-        new Actions(driver).moveToElement(driver.findElement(ukraineButton)).perform();
+        wait.until(new ElementDisplayed(driver.findElement(byCountry)));
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(byCountry)));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(byCountry));
 
-        driver.findElement(ukraineButton).click();
+        new Actions(driver).moveToElement(driver.findElement(byCountry)).perform();
+
+        driver.findElement(byCountry).click();
     }
 
 
@@ -111,15 +118,15 @@ public class MainPage extends BasePage {
         getMapButton(location).click();
     }
 
-    private void redirectToMap(String url) {
+    private Boolean redirectToMap(String url) {
         for(String winHandle : driver.getWindowHandles()) {
             driver.switchTo().window(winHandle);
         }
-        isPageRedirected(url);
+        return isPageRedirected(url);
     }
 
-    public void checkMapRedirect(UkraineLocations location) throws InterruptedException {
-        redirectToMap(location.getLocationURL());
+    public Boolean checkMapRedirect(UkraineLocations location) throws InterruptedException {
+        return redirectToMap(location.getLocationURL());
     }
 
 }

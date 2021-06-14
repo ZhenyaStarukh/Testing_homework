@@ -36,8 +36,8 @@ public class ServicesPage extends BasePage {
         findServiceElement(service).click();
     }
 
-    public void checkRedirection(Services service) throws InterruptedException {
-        isPageRedirected(service.getServicePageURL());
+    public Boolean checkRedirection(Services service) throws InterruptedException {
+        return isPageRedirected(service.getServicePageURL());
     }
 
 }

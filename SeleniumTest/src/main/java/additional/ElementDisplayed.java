@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 
+
 public class ElementDisplayed implements ExpectedCondition<Boolean> {
 
     private final WebElement element;
@@ -16,4 +17,5 @@ public class ElementDisplayed implements ExpectedCondition<Boolean> {
     public ElementDisplayed(WebElement element) {
         this.element = element;
     }
+
 }

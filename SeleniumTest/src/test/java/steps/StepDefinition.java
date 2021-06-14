@@ -10,7 +10,10 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.openqa.selenium.By;
 import test.TestBase;
+
+import static org.junit.Assert.assertTrue;
 
 public class StepDefinition extends TestBase {
 
@@ -36,7 +39,7 @@ public class StepDefinition extends TestBase {
 
     @Then("the cookie window close")
     public void theCookieWindowClose() {
-        mainPage.checkVanishedCookieWindow();
+        assertTrue(mainPage.checkVanishedCookieWindow());
     }
 
 
@@ -52,7 +55,7 @@ public class StepDefinition extends TestBase {
 
     @Then("I return to the main page")
     public void returnToTheMainPage() {
-        mainPage.isOnMainPage();
+        assertTrue(mainPage.isOnMainPage());
     }
 
     @When("I click on services button")
@@ -68,7 +71,7 @@ public class StepDefinition extends TestBase {
     @Then("^I will be redirected to \"([^\"]*)\" page$")
     public void redirectedToPage(Services service) {
         try{
-            servicesPage.checkRedirection(service);
+            assertTrue(servicesPage.checkRedirection(service));
         } catch (InterruptedException exception){
             exception.printStackTrace();
         }
@@ -92,7 +95,7 @@ public class StepDefinition extends TestBase {
 
     @Then("^I see site's main page on \"([^\"]*)\"$")
     public void seeSiteMainPageOnAnotherLanguage(Language language) {
-        mainPage.seeOtherMainPage(language);
+        assertTrue(mainPage.seeOtherMainPage(language));
     }
 
     @When("I click the contact us button")
@@ -102,7 +105,7 @@ public class StepDefinition extends TestBase {
 
     @Then("I see contact us page")
     public void seeContactUsPage() {
-        contactUsPage.seeContactUsPage();
+        assertTrue(contactUsPage.seeContactUsPage());
     }
 
     @Given("opened site's contact us page")
@@ -122,7 +125,7 @@ public class StepDefinition extends TestBase {
 
     @And("^it will highlight the empty \"([^\"]*)\" box$")
     public void checkHighlightOfEmptyBox(FormField field) {
-        contactUsPage.highlightBox(field);
+        assertTrue(contactUsPage.highlightBox(field));
     }
 
 
@@ -133,7 +136,7 @@ public class StepDefinition extends TestBase {
 
     @Then("the form will tell me that I have made wrong input")
     public void informAboutWrongInput() {
-        contactUsPage.highlightWrongEmail();
+        assertTrue(contactUsPage.highlightWrongEmail());
     }
 
     @When("I click the Europe button")
@@ -143,7 +146,12 @@ public class StepDefinition extends TestBase {
 
     @And("choose Ukraine from the list")
     public void chooseUkraineFromTheList() {
-        mainPage.chooseUkraine();
+        try {
+            mainPage.chooseCountry(new
+                    By.ByXPath("//div[@class=\"owl-stage\"]/div[26]/div/button"));
+        } catch (InterruptedException exception) {
+            exception.printStackTrace();
+        }
     }
 
     @And("^click on map button for \"([^\"]*)\" location$")
@@ -155,7 +163,7 @@ public class StepDefinition extends TestBase {
     @Then("^I will be redirected to the map page with the office \"([^\"]*)\"$")
     public void redirectToMapPage(UkraineLocations location) {
         try{
-            mainPage.checkMapRedirect(location);
+            assertTrue(mainPage.checkMapRedirect(location));
         } catch (InterruptedException exception) {
             exception.printStackTrace();
         }

@@ -26,8 +26,8 @@ public class ContactUsPage extends BasePage {
         SITE_URL+="about/who-we-are/contact";
     }
 
-    public void seeContactUsPage() {
-        isPageRedirected(SITE_URL);
+    public boolean seeContactUsPage() {
+        return isPageRedirected(SITE_URL);
     }
 
     public void goTo() {
@@ -55,12 +55,12 @@ public class ContactUsPage extends BasePage {
         submitButton.click();
     }
 
-    public void highlightBox(FormField field) {
-        hasColor(field.getInputBox(driver), "rgb(241, 92, 67)");
+    public Boolean highlightBox(FormField field) {
+        return hasColor(field.getInputBox(driver), "rgb(241, 92, 67)");
     }
 
-    public void highlightWrongEmail() {
-        isElementVisible(incorrectEmailMessageBox);
+    public Boolean highlightWrongEmail() {
+        return isElementVisible(incorrectEmailMessageBox);
     }
 
 
