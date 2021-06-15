@@ -1,5 +1,6 @@
 package pages;
 
+import additional.PropertiesUtils;
 import additional.Utils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -11,7 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class BasePage {
 
-    protected String SITE_URL="https://www.epam.com/";
+    protected String SITE_URL = new PropertiesUtils().getProperty("main.url");
     public WebDriver driver;
     public WebDriverWait wait;
 

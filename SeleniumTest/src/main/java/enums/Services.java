@@ -1,19 +1,20 @@
 package enums;
 
+import additional.PropertiesUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public enum Services {
-    CONSULT("CONSULT", "https://www.epam.com/services/consult-and-design",
+    CONSULT("CONSULT", new PropertiesUtils().getProperty("service.consult&design"),
             new By.ByXPath("//strong[text()='Consult']")),
-    DESIGN("DESIGN", "https://www.epam.com/services/consult-and-design",
+    DESIGN("DESIGN", new PropertiesUtils().getProperty("service.consult&design"),
             new By.ByXPath("//strong[text()='Design']")),
-    ENGINEER("ENGINEER", "https://www.epam.com/services/engineer",
+    ENGINEER("ENGINEER", new PropertiesUtils().getProperty("service.engineer"),
             new By.ByXPath("//strong[text()='Engineer']")),
-    OPERATE("OPERATE", "https://www.epam.com/services/operate",
+    OPERATE("OPERATE", new PropertiesUtils().getProperty("service.operate"),
             new By.ByXPath("//strong[text()='Operate']")),
-    OPTIMIZE("OPTIMIZE", "https://www.epam.com/services/optimize",
+    OPTIMIZE("OPTIMIZE", new PropertiesUtils().getProperty("service.optimize"),
             new By.ByXPath("//strong[text()='Optimize']"));
 
     private final String serviceName;

@@ -63,4 +63,13 @@
         </plugins>
     </build>
 
+    <profiles>
+        <profile>
+            <id>test-main</id>
+            <properties>
+                <main.url>https://www.epam.com/</main.url>
+            </properties>
+        </profile>
+    </profiles>
+
 </project>
