@@ -77,9 +77,9 @@ public class MainPage extends BasePage {
         return isPageRedirected(SITE_URL);
     }
 
-    public void clickEurope() {
+    public void clickRegion(By byRegion) {
         clickAcceptCookies();
-        driver.findElement(europeButton).click();
+        driver.findElement(byRegion).click();
     }
 
     public void chooseCountry(By byCountry) throws InterruptedException {

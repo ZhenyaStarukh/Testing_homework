@@ -1,1 +1,2 @@
-steps\RunTest.class
+steps\StepDefinition.class
+test\TestBase.class

@@ -141,7 +141,8 @@ public class StepDefinition extends TestBase {
 
     @When("I click the Europe button")
     public void clickTheEuropeButton() {
-        mainPage.clickEurope();
+        mainPage.clickRegion(new
+                By.ByXPath("//*[contains(@class,'tabs__link js-tabs-link')][contains(text(),'Europe')]"));
     }
 
     @And("choose Ukraine from the list")
